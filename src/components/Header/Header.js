@@ -11,7 +11,7 @@ export const Header = () => (
       Home
     </IndexLink>
     {' · '}
-    <Link to='/gavin/patient_zero' activeClassName={classes.activeRoute}>
+    <Link to='/gavin/base_patient_zero' activeClassName={classes.activeRoute}>
       Gavin
     </Link>
   </div>

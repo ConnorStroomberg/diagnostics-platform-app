@@ -1,4 +1,4 @@
-import { get } from 'redux/modules/MolgenisApi'
+import { get, submitForm } from 'redux/modules/MolgenisApi'
 import { getAllGenesPresent } from './Variants'
 import { showAlert } from 'redux/modules/Alerts'
 
@@ -28,8 +28,13 @@ export function fetchGeneNetworkScores (phenotype) {
   return function (dispatch, getState) {
     const { session : { server, token }, gavin } = getState()
     const genes = getAllGenesPresent(gavin.entities).join()
-    return get(server, `v2/sys_GeneNetworkScore?q=hpo==${phenotype.primaryID};hugo=in=(${genes})&num=1000`, token)
+    const body = {
+      rows: genes,
+      columns: phenotype.primaryID
+    }
+    return get(server, `matrix/sys_Matrix?q=columns==${phenotype.primaryID};rows=${genes}`, token)
       .then((json) => {
+        console.log(json)
         const scores = {}
         if (json.items.length === 0) {
           dispatch(showAlert('warning', 'No Gene Network scores were found for phenotype[' +
@@ -47,12 +52,6 @@ export function fetchGeneNetworkScores (phenotype) {
           }
         })
         dispatch(setGeneNetworkScores(phenotype, scores))
-      }).catch((error) => {
-        var message = ''
-        if (error.errors[0] !== undefined) {
-          message = error.errors[0].message
-        }
-        dispatch(showAlert('danger', 'Error retrieving Gene Network scores from the server', message))
       })
   }
 }
