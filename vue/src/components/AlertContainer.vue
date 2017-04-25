@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div class="col-md-12">
-      <b-alert :state="alertType" show dismissable>{{alertMessage}}</b-alert>
+      <b-alert :state="alert.type" show dismissable>{{alert.message}}</b-alert>
     </div>
   </div>
 </template>
@@ -9,6 +9,12 @@
 <script>
   export default {
     name: 'alert-container',
-    props: ['alertMessage', 'alertType']
+    computed: {
+      alert: {
+        get: function () {
+          return this.$store.state.alert
+        }
+      }
+    }
   }
 </script>
