@@ -1,5 +1,4 @@
 const state = {
-  message,
   date: new Date(),
   showAlert: false,
   alertMessage: '',
