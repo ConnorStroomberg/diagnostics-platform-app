@@ -7,10 +7,9 @@ export const START_IMPORT = '__START_IMPORT__'
 export const UPDATE_JOB = '__UPDATE_JOB__'
 
 const actions = {
-  [GET_PATIENT] ({ commit, state }) {
-    const {token, apiUrl, entity} = state
-    console.log(token, apiUrl, entity)
-    get(`${apiUrl}/v2/${entity}`, token)
+  [GET_PATIENT] ({ commit, state }, entityTypeId) {
+    const {token, apiUrl} = state
+    get(`${apiUrl}/v2/${entityTypeId}`, token)
       .then(response => {
         commit(SET_PATIENT, response.items)
       })

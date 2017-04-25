@@ -18,7 +18,8 @@
       }
     },
     created: function () {
-      this.$store.dispatch(GET_PATIENT)
+      const entityTypeId = this.$route.params.entityTypeId
+      this.$store.dispatch(GET_PATIENT, entityTypeId)
     }
 
   }
