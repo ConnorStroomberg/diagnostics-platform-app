@@ -1,6 +1,7 @@
 import { login, get, submitForm } from '../MolgenisApi'
-import { CREATE_ALERT, UPDATE_JOB, UPDATE_JOB_HREF, SET_TOKEN } from './mutations'
+import { CREATE_ALERT, UPDATE_JOB, UPDATE_JOB_HREF, SET_TOKEN, SET_PATIENT } from './mutations'
 
+export const GET_PATIENT = '__GET_PATIENT__'
 export const IMPORT_FILE = '__IMPORT_FILE__'
 export const FETCH_JOB = '__FETCH_JOB__'
 export const LOGIN = '__LOGIN__'
@@ -44,6 +45,13 @@ const actions = {
         }
       })
     }, 1000)
+  },
+  [GET_PATIENT] ({ commit, state }) {
+    const {token, apiUrl, entity} = state
+    get(`${apiUrl}/v2/${entity}`, token)
+      .then(response => {
+        commit(SET_PATIENT, response.items)
+      })
   }
 }
 

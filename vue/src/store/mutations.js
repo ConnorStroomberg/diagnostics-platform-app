@@ -3,6 +3,7 @@ export const REMOVE_ALERT = '__REMOVE_ALERT__'
 export const UPDATE_JOB = '__UPDATE_JOB__'
 export const UPDATE_JOB_HREF = '__UPDATE_JOB_HREF__'
 export const SET_TOKEN = '__SET_TOKEN__'
+export const SET_PATIENT = '__SET_PATIENT__'
 
 export default {
   /**
@@ -46,5 +47,8 @@ export default {
    */
   [SET_TOKEN] (state, token) {
     state.token = token
+  },
+  [SET_PATIENT] (state, variants) {
+    state.variants = variants
   }
 }
