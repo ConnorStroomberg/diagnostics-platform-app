@@ -9,7 +9,7 @@
         </b-card>
       </div>
     </div>
-    <alert-container v-if="showAlert" alertMessage="test" alertType="success"></alert-container>
+    <alert-container v-if="showAlert"></alert-container>
     <div class="row">
       <div class="col-md-3">
         <b-nav vertical>
@@ -30,6 +30,7 @@
 
 <script>
   import AlertContainer from './components/AlertContainer'
+  import { LOGIN } from './store/actions'
 
   export default {
     name: 'molgenis-app',
@@ -38,10 +39,22 @@
         get: function () {
           return this.$route.params.entityTypeId
         }
+      },
+      showAlert: {
+        get: function () {
+          return this.$store.state.showAlert
+        }
       }
     },
     components: {
       AlertContainer
+    },
+    created: function () {
+      console.log('test')
+      if (this.$store.state.token === null) {
+        console.log('test')
+        this.$store.dispatch(LOGIN)
+      }
     }
   }
 </script>
