@@ -9,8 +9,9 @@
         </b-card>
       </div>
     </div>
+    <alert-container v-if="showAlert" alertMessage="test" alertType="success"></alert-container>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
         <b-nav vertical>
           <b-nav-item>
             <router-link to="/">Import patient data</router-link>
@@ -20,7 +21,7 @@
           </b-nav-item>
         </b-nav>
       </div>
-      <div class="col-md-10">
+      <div class="col-md-9">
         <router-view></router-view>
       </div>
     </div>
@@ -28,6 +29,8 @@
 </template>
 
 <script>
+  import AlertContainer from './components/AlertContainer'
+
   export default {
     name: 'molgenis-app',
     computed: {
@@ -36,6 +39,9 @@
           return this.$route.params.entityTypeId
         }
       }
+    },
+    components: {
+      AlertContainer
     }
   }
 </script>
