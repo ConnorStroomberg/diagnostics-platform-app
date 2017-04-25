@@ -1,4 +1,5 @@
 export const CREATE_ALERT = '__CREATE_ALERT__'
+export const SET_PATIENT = '__SET_PATIENT__'
 
 export default {
   /**
@@ -10,5 +11,9 @@ export default {
     state.showAlert = true
     state.alertMessage = alert.message
     state.alertType = alert.type
+  },
+  [SET_PATIENT] (state, variants) {
+    console.log(variants)
+    state.variants = variants
   }
 }
