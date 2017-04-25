@@ -8,7 +8,7 @@ export const LOGIN = '__LOGIN__'
 
 const actions = {
   [LOGIN] (store) {
-    const { server, username, password } = store.state.session
+    const {server, username, password} = store.state.session
     login(server, username, password).then((response) => {
       store.commit(SET_TOKEN, response.token)
     })
@@ -27,7 +27,7 @@ const actions = {
     }))
   },
   [FETCH_JOB] (store, commit, jobHref) {
-    const { server } = store.state.session
+    const {server} = store.state.session
     const token = store.state.token
     const interval = setInterval(() => {
       get(server, jobHref, token).then((job) => {
@@ -46,9 +46,9 @@ const actions = {
       })
     }, 1000)
   },
-  [GET_PATIENT] ({ commit, state }, entityTypeId) {
-  const {token, apiUrl} = state
-  get(`${apiUrl}/v2/${entityTypeId}`, token)
+  [GET_PATIENT] ({commit, state}, entityTypeId) {
+    const {token, apiUrl} = state
+    get(`${apiUrl}/v2/${entityTypeId}`, token)
       .then(response => {
         commit(SET_PATIENT, response.items)
       })

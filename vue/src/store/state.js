@@ -8,7 +8,7 @@ const state = {
     password: 'admin'
   },
   showAlert: false,
-    entity: '',
+  entity: '',
   alertMessage: '',
   alertType: '',
   apiUrl: 'http://localhost:8080/api',
