@@ -22,7 +22,6 @@ class UploadForm extends Component {
       entityName,
       setEntityName,
       showSubmit,
-      disableSubmit,
       onSubmit
     } = this.props
     return (
@@ -37,7 +36,7 @@ class UploadForm extends Component {
               placeholder='Entity name' onChange={setEntityName} />}
           {showSubmit &&
             <div className='form-group' key='submit'>
-              <Button bsStyle='default' onClick={(e) => { e.preventDefault(); onSubmit() }} disabled={disableSubmit}>
+              <Button bsStyle='default' onClick={(e) => { e.preventDefault(); onSubmit() }}>
                 Upload
               </Button>
             </div>}
@@ -54,7 +53,6 @@ UploadForm.propTypes = {
   entityName    : PropTypes.string,
   setEntityName : PropTypes.func,
   showSubmit    : PropTypes.bool,
-  disableSubmit : PropTypes.bool,
   onSubmit      : PropTypes.func
 }
 
@@ -129,7 +127,6 @@ class UploadFormContainer extends Component {
         setFile={this.setFile}
         setEntityName={this.setEntityName}
         showSubmit={this.state.file}
-        disableSubmit={this.state.showNameField && !this.state.entityName}
         onSubmit={this.onSubmit}
         {...this.state}
       />
