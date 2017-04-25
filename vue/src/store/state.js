@@ -1,7 +1,7 @@
 const state = {
   session: {
     server: {
-      apiUrl: 'http://localhost:8080/api',
+      apiUrl: '/api',
       version: '4.0.0'
     },
     username: 'admin',
@@ -11,7 +11,7 @@ const state = {
   entity: '',
   alertMessage: '',
   alertType: '',
-  apiUrl: 'http://localhost:8080/api',
+  apiUrl: '/api',
   token: 'df290f49514d46de8bc572a07ec25c34',
   alert: {
     message: null,

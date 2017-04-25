@@ -58,9 +58,10 @@
         formData.append('action', 'ADD')
         formData.append('notify', false)
 
-        console.log(formData)
-
         this.$store.dispatch(IMPORT_FILE, formData)
+//
+//        this.entityTypeId = null
+//        this.file = null
       }
     }
   }

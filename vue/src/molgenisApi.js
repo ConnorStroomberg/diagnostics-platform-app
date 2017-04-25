@@ -51,8 +51,8 @@ export function get (server, uri, token) {
   return callApi(server, uri, 'get', token)
 }
 
-export function login (server, username, password) {
-  return fetch(server.apiUrl + 'v1/login', {
+export function login (username, password) {
+  return fetch('/api/v1/login', {
     method: 'post',
     headers: jsonContentHeaders,
     body: JSON.stringify({username: username, password: password})
