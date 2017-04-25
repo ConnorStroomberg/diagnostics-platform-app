@@ -50,9 +50,7 @@
       AlertContainer
     },
     created: function () {
-      console.log('test')
       if (this.$store.state.token === null) {
-        console.log('test')
         this.$store.dispatch(LOGIN)
       }
     }

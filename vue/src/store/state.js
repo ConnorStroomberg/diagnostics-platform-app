@@ -1,7 +1,7 @@
 const state = {
   session: {
     server: {
-      apiUrl: 'http://localhost:8080/api',
+      apiUrl: '/api',
       version: '4.0.0'
     },
     username: 'admin',
