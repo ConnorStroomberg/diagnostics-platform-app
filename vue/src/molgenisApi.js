@@ -21,8 +21,7 @@ export function submitForm (url, method, formData, token) {
   return fetch(url, settings)
 }
 
-function callApi (server, uri, method, token) {
-  const url = server.apiUrl + uri
+function callApi (url, method, token) {
   const settings = {
     method: method,
     headers: jsonContentHeaders
@@ -30,7 +29,7 @@ function callApi (server, uri, method, token) {
 
   if (token) {
     // for cross-origin requests, use a molgenis token
-    settings.headers = {...jsonContentHeaders, 'x-molgenis-token': token}
+    settings.headers = { ...jsonContentHeaders, 'x-molgenis-token': token }
   } else {
     // for same origin requests, use the JSESSIONID cookie
     settings.credentials = 'same-origin'
@@ -38,8 +37,8 @@ function callApi (server, uri, method, token) {
 
   return fetch(url, settings)
     .then(response => response.json()
-      .then(json => ({json, response})))
-    .then(({json, response}) => {
+      .then(json => ({ json, response })))
+    .then(({ json, response }) => {
       if (!response.ok) {
         return Promise.reject(json)
       }
@@ -47,8 +46,8 @@ function callApi (server, uri, method, token) {
     })
 }
 
-export function get (server, uri, token) {
-  return callApi(server, uri, 'get', token)
+export function get (url, token) {
+  return callApi(url, 'get', token)
 }
 
 export function login (username, password) {
