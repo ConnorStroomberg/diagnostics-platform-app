@@ -12,7 +12,7 @@ const state = {
   alertMessage: '',
   alertType: '',
   apiUrl: '/api',
-  token: 'a5aaf9c7dd3742378a43f254fc291635',
+  token: 'ccb9e66ac92e485086b1af89e6654e59',
   alert: {
     message: null,
     type: null
