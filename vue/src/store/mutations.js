@@ -4,6 +4,7 @@ export const UPDATE_JOB = '__UPDATE_JOB__'
 export const UPDATE_JOB_HREF = '__UPDATE_JOB_HREF__'
 export const SET_TOKEN = '__SET_TOKEN__'
 export const SET_PATIENT_TABLES = '__SET_PATIENT_TABLES__'
+export const SET_PHENOTYPES = '__SET_PHENOTYPES__'
 export const SET_PATIENT = '__SET_PATIENT__'
 
 export default {
@@ -56,6 +57,9 @@ export default {
    */
   [SET_PATIENT_TABLES] (state, patients) {
     state.patients = patients
+  },
+  [SET_PHENOTYPES] (state, phenotypes) {
+    state.phenotypes = phenotypes
   },
   [SET_PATIENT] (state, variants) {
     state.variants = variants

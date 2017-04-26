@@ -1,5 +1,13 @@
 import { get, login, submitForm } from '../MolgenisApi'
-import { CREATE_ALERT, SET_PATIENT, SET_TOKEN, SET_PATIENT_TABLES, UPDATE_JOB, UPDATE_JOB_HREF } from './mutations'
+import {
+  CREATE_ALERT,
+  SET_PATIENT,
+  SET_PATIENT_TABLES,
+  SET_PHENOTYPES,
+  SET_TOKEN,
+  UPDATE_JOB,
+  UPDATE_JOB_HREF
+} from './mutations'
 
 export const GET_PATIENT = '__GET_PATIENT__'
 export const IMPORT_FILE = '__IMPORT_FILE__'
@@ -60,9 +68,11 @@ const actions = {
         commit(SET_PATIENT, response.items)
       })
   },
-  [FETCH_HPO_ONTOLOGIES] ({commit, state}) {
-    // TODO Get HPO ontologies
-    // See https://github.com/monterail/vue-multiselect
+  [FETCH_HPO_ONTOLOGIES] ({commit, state}, query) {
+    get(state.session.server, '/v2/sys_ont_OntologyTerm?q=ontology.ontologyName==hp;(ontologyTermName=q=' + query + ',ontologyTermSynonym.ontologyTermSynonym=q=' + query + ',ontologyTermIRI=q=' + query + ')')
+      .then(response => {
+        commit(SET_PHENOTYPES, response.items)
+      })
   }
 }
 

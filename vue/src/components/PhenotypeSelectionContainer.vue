@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>This is the Phenotype Selection Container</h1>
+    <hpo-select></hpo-select>
     <variant-table :items="variants"></variant-table>
   </div>
 </template>
@@ -8,10 +8,11 @@
 <script>
   import { GET_PATIENT } from '../store/actions'
   import VariantTable from './VariantTable'
+  import HpoSelect from './HpoSelect'
 
   export default {
     name: 'phenotype-selection-container',
-    components: {VariantTable},
+    components: {VariantTable, HpoSelect},
     computed: {
       variants: {
         get: function () {
