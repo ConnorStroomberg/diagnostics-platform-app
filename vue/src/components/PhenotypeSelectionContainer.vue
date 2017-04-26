@@ -21,7 +21,6 @@
     },
     created: function () {
       const entityTypeId = this.$route.params.entityTypeId
-      console.log(entityTypeId)
       this.$store.dispatch(GET_PATIENT, entityTypeId)
     }
 

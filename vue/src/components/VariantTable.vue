@@ -9,9 +9,6 @@
     <template slot="email" scope="item">
       {{item.item.Email}}
     </template>
-    <!--<template slot="actions" scope="item">-->
-      <!--<b-btn size="sm" @click="details(item.item)">Details</b-btn>-->
-    <!--</template>-->
   </b-table>
 </template>
 
