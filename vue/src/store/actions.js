@@ -49,8 +49,8 @@ const actions = {
     }, 1000)
   },
   [GET_PATIENT] ({commit, state}, entityTypeId) {
-    const {token, apiUrl} = state
-    get(`${apiUrl}/v2/${entityTypeId}`, token)
+    const {token} = state
+    get(state.session.server, `/v2/${entityTypeId}`, token)
       .then(response => {
         commit(SET_PATIENT, response.items)
       })
