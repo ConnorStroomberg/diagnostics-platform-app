@@ -52,7 +52,7 @@ export default {
   /**
    * Set the list of EntityTypes origination from the diagnostics package
    * @param state state of the application
-   * @param variantTables list of EntityTypes used to set the list of variantTables in the state
+   * @param variantTables list of EntityTypes used to set the list of patients in the state
    */
   [SET_PATIENT_TABLES] (state, patients) {
     state.patients = patients

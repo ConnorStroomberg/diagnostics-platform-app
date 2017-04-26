@@ -14,8 +14,14 @@
       <div class="col-md-3">
         <b-nav vertical>
           <b-nav-item>
-            <router-link to="/">Import patient data</router-link>
+            <router-link to="/">
+              <b-button class="btn">Import patient data</b-button>
+            </router-link>
           </b-nav-item>
+        </b-nav>
+        <hr>
+        <b-nav vertical>
+          <b-nav-item><span class="text-muted">Patients</span></b-nav-item>
           <b-nav-item v-for="patient in patients">
             <router-link :to="{ name: 'view', params: { entityTypeId: patient.id }}">{{patient.label}}</router-link>
           </b-nav-item>
