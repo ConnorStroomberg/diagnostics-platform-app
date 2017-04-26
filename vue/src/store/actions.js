@@ -1,10 +1,11 @@
 import { get, login, submitForm } from '../MolgenisApi'
-import { CREATE_ALERT, SET_PATIENT, SET_TOKEN, SET_VARIANT_TABLES, UPDATE_JOB, UPDATE_JOB_HREF } from './mutations'
+import { CREATE_ALERT, SET_PATIENT, SET_TOKEN, SET_PATIENT_TABLES, UPDATE_JOB, UPDATE_JOB_HREF } from './mutations'
 
 export const GET_PATIENT = '__GET_PATIENT__'
 export const IMPORT_FILE = '__IMPORT_FILE__'
 export const FETCH_JOB = '__FETCH_JOB__'
-export const FETCH_VARIANT_TABLES = '__FETCH_VARIANT_TABLES__'
+export const FETCH_PATIENT_TABLES = '__FETCH_PATIENT_TABLES__'
+export const FETCH_HPO_ONTOLOGIES = '__FETCH_HPO_ONTOLOGIES__'
 export const LOGIN = '__LOGIN__'
 
 const actions = {
@@ -28,13 +29,14 @@ const actions = {
         })
       })
   },
-  [FETCH_JOB] ({commit, state}) {
+  [FETCH_JOB] ({commit, dispatch, state}) {
     const interval = setInterval(() => {
       get({apiUrl: state.jobHref}, '', state.token).then((job) => {
         if (job.status === 'FINISHED') {
           clearInterval(interval)
           commit(CREATE_ALERT, {message: 'Import succeeded ' + job.importedEntities, type: 'info'})
           commit(UPDATE_JOB, null)
+          dispatch(FETCH_PATIENT_TABLES)
           // TODO: go to screen 2, but for which of them?
         } else if (job.status === 'FAILED') {
           clearInterval(interval)
@@ -46,17 +48,21 @@ const actions = {
       })
     }, 1000)
   },
-  [FETCH_VARIANT_TABLES] ({commit, state}) {
+  [FETCH_PATIENT_TABLES] ({commit, state}) {
     get(state.session.server, '/v2/sys_md_Package?q=id==' + state.diagnosticsPackageId + '&attrs=entityTypes')
       .then(response => {
-        commit(SET_VARIANT_TABLES, response.items[0].entityTypes)
+        commit(SET_PATIENT_TABLES, response.items[0].entityTypes)
       })
   },
-  [GET_PATIENT] ({commit, state}, entityTypeId) {
-    get(state.session.server, `/v2/${entityTypeId}`, state.token)
+  [GET_PATIENT] ({commit, state}, patientId) {
+    get(state.session.server, `/v2/${patientId}`, state.token)
       .then(response => {
         commit(SET_PATIENT, response.items)
       })
+  },
+  [FETCH_HPO_ONTOLOGIES] ({commit, state}) {
+    // TODO Get HPO ontologies
+    // See https://github.com/monterail/vue-multiselect
   }
 }
 

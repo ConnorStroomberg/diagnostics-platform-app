@@ -16,8 +16,8 @@
           <b-nav-item>
             <router-link to="/">Import patient data</router-link>
           </b-nav-item>
-          <b-nav-item>
-            <router-link to="/view/sys_sec_User">View patient</router-link>
+          <b-nav-item v-for="patient in patients">
+            <router-link :to="{ name: 'view', params: { entityTypeId: patient.id }}">{{patient.label}}</router-link>
           </b-nav-item>
         </b-nav>
       </div>
@@ -30,7 +30,7 @@
 
 <script>
   import AlertContainer from './components/AlertContainer'
-  import { LOGIN } from './store/actions'
+  import { LOGIN, FETCH_PATIENT_TABLES } from './store/actions'
 
   export default {
     name: 'molgenis-app',
@@ -44,6 +44,11 @@
         get: function () {
           return this.$store.state.showAlert
         }
+      },
+      patients: {
+        get: function () {
+          return this.$store.state.patients
+        }
       }
     },
     components: {
@@ -53,6 +58,7 @@
       if (this.$store.state.token === null) {
         this.$store.dispatch(LOGIN)
       }
+      this.$store.dispatch(FETCH_PATIENT_TABLES)
     }
   }
 </script>

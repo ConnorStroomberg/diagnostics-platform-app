@@ -3,7 +3,7 @@ export const REMOVE_ALERT = '__REMOVE_ALERT__'
 export const UPDATE_JOB = '__UPDATE_JOB__'
 export const UPDATE_JOB_HREF = '__UPDATE_JOB_HREF__'
 export const SET_TOKEN = '__SET_TOKEN__'
-export const SET_VARIANT_TABLES = '__SET_VARIANT_TABLES__'
+export const SET_PATIENT_TABLES = '__SET_PATIENT_TABLES__'
 export const SET_PATIENT = '__SET_PATIENT__'
 
 export default {
@@ -54,8 +54,8 @@ export default {
    * @param state state of the application
    * @param variantTables list of EntityTypes used to set the list of variantTables in the state
    */
-  [SET_VARIANT_TABLES] (state, variantTables) {
-    state.variantTables = variantTables
+  [SET_PATIENT_TABLES] (state, patients) {
+    state.patients = patients
   },
   [SET_PATIENT] (state, variants) {
     state.variants = variants
