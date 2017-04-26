@@ -48,21 +48,18 @@
         return value
       },
       /**
-       * Handles @click even from the upload button
+       * Handles @click event from the upload button
        * Dispatches: IMPORT_FILE
        */
       upload: function () {
         const formData = new FormData()
         formData.append('file', this.file)
         formData.append('entityTypeId', this.entityTypeId)
-        formData.append('packageName', 'diagnostics')
+        formData.append('packageName', this.$store.state.diagnosticsPackageId)
         formData.append('action', 'ADD')
         formData.append('notify', false)
 
         this.$store.dispatch(IMPORT_FILE, formData)
-//
-//        this.entityTypeId = null
-//        this.file = null
       }
     }
   }
