@@ -5,6 +5,18 @@ const jsonContentHeaders = {
   'Content-Type': 'application/json'
 }
 
+function fetchAndHandleResponse (url, settings) {
+  return fetch(url, settings)
+    .then(response => response.json()
+      .then(json => ({json, response})))
+    .then(({json, response}) => {
+      if (!response.ok) {
+        return Promise.reject(json)
+      }
+      return json
+    })
+}
+
 export function submitForm (url, method, formData, token) {
   const settings = {
     method: method,
@@ -18,7 +30,7 @@ export function submitForm (url, method, formData, token) {
     // for same origin requests, use the JSESSIONID cookie
     settings.credentials = 'same-origin'
   }
-  return fetch(url, settings)
+  return fetchAndHandleResponse(url, settings)
 }
 
 function callApi (server, uri, method, token) {
@@ -36,15 +48,7 @@ function callApi (server, uri, method, token) {
     settings.credentials = 'same-origin'
   }
 
-  return fetch(url, settings)
-    .then(response => response.json()
-      .then(json => ({json, response})))
-    .then(({json, response}) => {
-      if (!response.ok) {
-        return Promise.reject(json)
-      }
-      return json
-    })
+  return fetchAndHandleResponse(url, settings)
 }
 
 export function get (server, uri, token) {

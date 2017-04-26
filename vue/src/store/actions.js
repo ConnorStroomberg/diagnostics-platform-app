@@ -16,18 +16,17 @@ const actions = {
   [IMPORT_FILE] (store, formData) {
     store.commit(UPDATE_JOB, null)
     const token = store.state.token
-    submitForm('/plugin/importwizard/importFile', 'post', formData, token).then((response) => {
-      response.json().then((jobHref) => {
-        store.commit(UPDATE_JOB_HREF, jobHref)
+    submitForm('/plugin/importwizard/importFile', 'post', formData, token)
+      .then(response => {
+        store.commit(UPDATE_JOB_HREF, response)
         store.dispatch(FETCH_JOB)
-      }, (error) => {
-        console.log(error)
+      })
+      .catch(function (error) {
         store.commit(CREATE_ALERT, {
-          message: 'Failed to import file, cause: ' + error.message,
+          message: 'Failed to import file, cause: ' + error,
           type: 'danger'
         })
       })
-    })
   },
   [FETCH_JOB] (store) {
     const token = store.state.token

@@ -55,6 +55,7 @@
         const formData = new FormData()
         formData.append('file', this.file)
         formData.append('entityTypeId', this.entityTypeId)
+        formData.append('packageName', 'diagnostics')
         formData.append('action', 'ADD')
         formData.append('notify', false)
 
