@@ -7,8 +7,11 @@ const state = {
     username: 'admin',
     password: 'admin'
   },
-  token: null,
   showAlert: false,
+  entity: '',
+  alertMessage: '',
+  alertType: '',
+  token: 'ccb9e66ac92e485086b1af89e6654e59',
   alert: {
     message: null,
     type: null
