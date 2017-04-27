@@ -5,6 +5,7 @@ export const UPDATE_JOB_HREF = '__UPDATE_JOB_HREF__'
 export const SET_TOKEN = '__SET_TOKEN__'
 export const SET_PATIENT_TABLES = '__SET_PATIENT_TABLES__'
 export const SET_PHENOTYPES = '__SET_PHENOTYPES__'
+export const SET_SELECTED_PHENOTYPES = '__SET_SELECTED_PHENOTYPES__'
 export const SET_PATIENT = '__SET_PATIENT__'
 
 export default {
@@ -60,6 +61,14 @@ export default {
   },
   [SET_PHENOTYPES] (state, phenotypes) {
     state.phenotypes = phenotypes
+  },
+  /**
+   * Sets the list of currently selected phenotypes
+   * @param state state of the application
+   * @param list of selected phenotypes, may be empty
+   */
+  [SET_SELECTED_PHENOTYPES] (state, selectedPhenotypes) {
+    state.selectedPhenotypes = selectedPhenotypes
   },
   [SET_PATIENT] (state, variants) {
     state.variants = variants

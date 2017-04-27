@@ -18,6 +18,7 @@ const state = {
   diagnosticsPackageId: window.__INITIAL_STATE__.diagnosticsPackageId,
   patients: [],
   phenotypes: [],
+  selectedPhenotypes: [],
   variants: []
 }
 
