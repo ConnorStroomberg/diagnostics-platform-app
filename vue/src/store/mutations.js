@@ -59,16 +59,14 @@ export default {
   [SET_PATIENT_TABLES] (state, patients) {
     state.patients = patients
   },
-  [SET_PHENOTYPES] (state, phenotypes) {
-    state.phenotypes = phenotypes
-  },
   /**
    * Sets the list of currently selected phenotypes
    * @param state state of the application
    * @param list of selected phenotypes, may be empty
    */
   [SET_SELECTED_PHENOTYPES] (state, selectedPhenotypes) {
-    state.selectedPhenotypes = selectedPhenotypes
+    // Use slice to clone selectedPhenotypes, this is needed to avoid altering the store form outside via the selectedPhenotypes
+    state.selectedPhenotypes = selectedPhenotypes.slice()
   },
   [SET_PATIENT] (state, variants) {
     state.variants = variants

@@ -20,30 +20,25 @@
 
 <script>
   import vSelect from 'vue-select'
-  import { FETCH_HPO_ONTOLOGIES } from '../store/actions'
+  import { get } from '../MolgenisApi'
   import { SET_SELECTED_PHENOTYPES } from '../store/mutations'
+  import { COMPUTE_SCORE } from '../store/actions'
 
   export default {
     name: 'hpo-select',
-    methods: {
-      queryOntologies (query) {
-        this.$store.dispatch(FETCH_HPO_ONTOLOGIES, query)
-      },
-      selectionChanged (selected) {
-        console.log(selected)
-        this.$store.commit(SET_SELECTED_PHENOTYPES, selected)
+    data: function () {
+      return {
+        phenotypes: []
       }
     },
-    computed: {
-      ontologies: {
-        get: function () {
-          return []
-        }
+    methods: {
+      queryOntologies (query) {
+        get(this.$store.state.session.server, '/v2/sys_ont_OntologyTerm?q=ontology.ontologyName==hp;(ontologyTermName=q=' + query + ',ontologyTermSynonym.ontologyTermSynonym=q=' + query + ',ontologyTermIRI=q=' + query + ')')
+          .then(response => { this.phenotypes = response.items })
       },
-      phenotypes: {
-        get: function () {
-          return this.$store.state.phenotypes
-        }
+      selectionChanged (selected) {
+        this.$store.commit(SET_SELECTED_PHENOTYPES, selected)
+        this.$store.dispatch(COMPUTE_SCORE, selected.slice()[0])
       }
     },
     components: {

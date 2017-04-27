@@ -1,7 +1,7 @@
 <template>
   <div>
     <hpo-select></hpo-select>
-    <variant-table :items="variants"></variant-table>
+    <variant-table :variants="variants"></variant-table>
   </div>
 </template>
 

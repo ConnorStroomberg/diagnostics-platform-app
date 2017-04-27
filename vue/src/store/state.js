@@ -17,7 +17,6 @@ const state = {
   jobHref: null,
   diagnosticsPackageId: window.__INITIAL_STATE__.diagnosticsPackageId,
   patients: [],
-  phenotypes: [],
   selectedPhenotypes: [],
   variants: []
 }

@@ -1,33 +1,32 @@
 <template>
-  <b-table striped hover :items="items" :fields="fields">
-    <template slot="username" scope="item">
-      {{item.item.username}}
-    </template>
-    <template slot="isActive" scope="item">
-      {{item.item.active?'Yes :)':'No :('}}
-    </template>
-    <template slot="email" scope="item">
-      {{item.item.Email}}
-    </template>
+  <b-table hover :items="variants" :fields="fields">
   </b-table>
 </template>
 
 <script>
   export default {
     name: 'variant-table',
-    props: ['items'],
+    props: ['variants'],
     data: function () {
       return {
         fields: {
-          username: {
-            label: 'Username',
-            sortable: true
+          '#CHROM': {
+            label: 'Chromosome'
           },
-          isActive: {
-            label: 'is Active'
+          'POS': {
+            label: 'Position'
           },
-          email: {
-            label: 'E-mail'
+          'REF': {
+            label: 'Reference allele'
+          },
+          'ALT': {
+            label: 'Alternative allele'
+          },
+          'Gene': {
+            label: 'HGNC Gene'
+          },
+          'totalScore': {
+            label: 'Score'
           }
         },
         filter: null

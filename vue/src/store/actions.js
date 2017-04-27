@@ -3,7 +3,6 @@ import {
   CREATE_ALERT,
   SET_PATIENT,
   SET_PATIENT_TABLES,
-  SET_PHENOTYPES,
   SET_TOKEN,
   UPDATE_JOB,
   UPDATE_JOB_HREF
@@ -15,6 +14,7 @@ export const FETCH_JOB = '__FETCH_JOB__'
 export const FETCH_PATIENT_TABLES = '__FETCH_PATIENT_TABLES__'
 export const FETCH_HPO_ONTOLOGIES = '__FETCH_HPO_ONTOLOGIES__'
 export const LOGIN = '__LOGIN__'
+export const COMPUTE_SCORE = '__COMPUTE_SCORE__'
 
 const actions = {
   [LOGIN] ({commit, state}) {
@@ -70,10 +70,16 @@ const actions = {
         commit(SET_PATIENT, response.items)
       })
   },
-  [FETCH_HPO_ONTOLOGIES] ({commit, state}, query) {
-    get(state.session.server, '/v2/sys_ont_OntologyTerm?q=ontology.ontologyName==hp;(ontologyTermName=q=' + query + ',ontologyTermSynonym.ontologyTermSynonym=q=' + query + ',ontologyTermIRI=q=' + query + ')')
+  [COMPUTE_SCORE] ({commit, state}, phenotype) {
+    const matrixEntityId = 'test5'
+    const rows = state.variants.map(function (variant) {
+      return variant.Gene
+    }).toString()
+    const ontologyTermIRI = phenotype.ontologyTermIRI
+    const primaryID = ontologyTermIRI.substring(ontologyTermIRI.lastIndexOf('/') + 1)
+    get(state.session.server, `/matrix/${matrixEntityId}/valueByNames?columns=${primaryID}&rows=${rows}`, state.token)
       .then(response => {
-        commit(SET_PHENOTYPES, response.items)
+        commit(SET_PATIENT, response.items)
       })
   }
 }
