@@ -59,7 +59,9 @@ const actions = {
   [FETCH_PATIENT_TABLES] ({commit, state}) {
     get(state.session.server, '/v2/sys_md_Package?q=id==' + state.diagnosticsPackageId + '&attrs=entityTypes')
       .then(response => {
-        commit(SET_PATIENT_TABLES, response.items[0].entityTypes)
+        if (response.items && response.items[0]) {
+          commit(SET_PATIENT_TABLES, response.items[0].entityTypes)
+        }
       })
   },
   [GET_PATIENT] ({commit, state}, patientId) {
