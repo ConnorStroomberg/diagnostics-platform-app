@@ -7,6 +7,7 @@ export const SET_PATIENT_TABLES = '__SET_PATIENT_TABLES__'
 export const SET_PHENOTYPES = '__SET_PHENOTYPES__'
 export const SET_SELECTED_PHENOTYPES = '__SET_SELECTED_PHENOTYPES__'
 export const SET_PATIENT = '__SET_PATIENT__'
+export const TOGGLE_SELECTED_PHENOTYPES_ACIVATION = '__TOGGLE_SELECTED_PHENOTYPES_ACIVATION__'
 
 export default {
   /**
@@ -70,5 +71,11 @@ export default {
   },
   [SET_PATIENT] (state, variants) {
     state.variants = variants
+  },
+  [TOGGLE_SELECTED_PHENOTYPES_ACIVATION] (state, selectedPhenotypeId) {
+    let selectedPhenotype = state.selectedPhenotypes.find(function (selectedPhenotype) {
+      return selectedPhenotype.id === selectedPhenotypeId
+    })
+    selectedPhenotype.isActive = !selectedPhenotype.isActive
   }
 }
