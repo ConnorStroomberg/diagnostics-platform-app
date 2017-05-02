@@ -22,8 +22,8 @@
           'ALT': {
             label: 'Alternative allele'
           },
-          'Gene': {
-            label: 'HGNC Gene'
+          'Gene_Name': {
+            label: 'Gene'
           },
           'totalScore': {
             label: 'Score'

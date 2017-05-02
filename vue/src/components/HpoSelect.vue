@@ -21,7 +21,7 @@
     <div class="row form-group">
       <div class="col">
         <ul id="selected-phenotype-list">
-          <li v-for="phenotype in selectedPhenotypes" class="row">
+          <li v-for="phenotype in phenotypeFilters" class="row">
             <div class="col">
               {{ phenotype.ontologyTermName }}
             </div>
@@ -29,7 +29,7 @@
               active
             </b-form-checkbox>
           </li>
-          <li v-show="selectedPhenotypes.length === 0" class="row">
+          <li v-show="phenotypeFilters.length === 0" class="row">
             <em class="col">No phenotypes selected</em>
           </li>
         </ul>
@@ -54,8 +54,8 @@
 <script>
   import vSelect from 'vue-select'
   import { get } from '../MolgenisApi'
-  import { SET_SELECTED_PHENOTYPES, TOGGLE_SELECTED_PHENOTYPES_ACIVATION } from '../store/mutations'
-  // import { COMPUTE_SCORE } from '../store/actions'
+  import { SET_PHENOTYPE_FILTERS, TOGGLE_ACTIVE_PHENOTYPE_FILTERS } from '../store/mutations'
+  import { COMPUTE_SCORE } from '../store/actions'
 
   export default {
     name: 'hpo-select',
@@ -65,14 +65,16 @@
       }
     },
     computed: {
-      selectedPhenotypes: {
+      phenotypeFilters: {
         get: function () {
-          return this.$store.state.selectedPhenotypes
+          return this.$store.state.phenotypeFilters
         }
       }
     },
     methods: {
       queryOntologies (query) {
+        // FIXME Searching for HP_0100280 retrieves all items.
+        // FIXME Searching for 0100280 does retrieve 1 item but it is not shown in dropdown
         get(this.$store.state.session.server, '/v2/sys_ont_OntologyTerm?q=ontology.ontologyName==hp;(ontologyTermName=q=' + query + ',ontologyTermSynonym.ontologyTermSynonym=q=' + query + ',ontologyTermIRI=q=' + query + ')')
           .then(response => {
             this.phenotypes = response.items.map(function (item) {
@@ -82,12 +84,11 @@
           })
       },
       selectionChanged (selected) {
-        this.$store.commit(SET_SELECTED_PHENOTYPES, selected)
-        // this.$store.dispatch(COMPUTE_SCORE, selected.slice()[0])
+        this.$store.commit(SET_PHENOTYPE_FILTERS, selected)
+        this.$store.dispatch(COMPUTE_SCORE, selected)
       },
       activationChanged (phenotypeId) {
-        this.$store.commit(TOGGLE_SELECTED_PHENOTYPES_ACIVATION, phenotypeId)
-        // this.$store.dispatch(COMPUTE_SCORE, selected.slice()[0])
+        this.$store.commit(TOGGLE_ACTIVE_PHENOTYPE_FILTERS, phenotypeId)
       }
     },
     components: {

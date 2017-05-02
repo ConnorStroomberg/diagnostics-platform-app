@@ -4,7 +4,7 @@
     <div class="row form-group">
       <div class="col">
         <label for="vcf-file-select">Variant file</label>
-        <b-form-file class="" id="vcf-file-select" choose-label="Select a VCF file" v-model="file"></b-form-file><br>
+        <b-form-file id="vcf-file-select" choose-label="Select a VCF file" v-model="file"></b-form-file><br>
         <small class="text-muted">Select a .vcf or .vcf.gz file from your hard drive</small>
       </div>
     </div>
@@ -19,7 +19,7 @@
 
     <div class="row">
       <div class="col">
-          <b-button type="submit" class="btn btn-success" :disabled="!entityTypeId || file === null">Upload</b-button>
+          <b-button class="btn btn-success" :disabled="!entityTypeId || file === null" @click="upload">Upload</b-button>
       </div>
     </div>
 

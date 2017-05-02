@@ -24,6 +24,5 @@
       const entityTypeId = this.$route.params.entityTypeId
       this.$store.dispatch(GET_PATIENT, entityTypeId)
     }
-
   }
 </script>

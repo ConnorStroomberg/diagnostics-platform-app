@@ -4,14 +4,14 @@ export const UPDATE_JOB = '__UPDATE_JOB__'
 export const UPDATE_JOB_HREF = '__UPDATE_JOB_HREF__'
 export const SET_TOKEN = '__SET_TOKEN__'
 export const SET_PATIENT_TABLES = '__SET_PATIENT_TABLES__'
-export const SET_PHENOTYPES = '__SET_PHENOTYPES__'
-export const SET_SELECTED_PHENOTYPES = '__SET_SELECTED_PHENOTYPES__'
-export const SET_PATIENT = '__SET_PATIENT__'
-export const TOGGLE_SELECTED_PHENOTYPES_ACIVATION = '__TOGGLE_SELECTED_PHENOTYPES_ACIVATION__'
+export const SET_PHENOTYPE_FILTERS = '__SET_PHENOTYPE_FILTERS__'
+export const SET_VARIANTS = '__SET_PATIENT__'
+export const TOGGLE_ACTIVE_PHENOTYPE_FILTERS = '__TOGGLE_ACTIVE_PHENOTYPE_FILTERS__'
 
 export default {
   /**
    * Create an active alert with a given message and type
+   *
    * @param state state of the application
    * @param alert alert object containing 1. message and 2. type
    */
@@ -21,6 +21,7 @@ export default {
   },
   /**
    * Remove an active alert and set message and type back to null
+   *
    * @param state state of the application
    */
   [REMOVE_ALERT] (state) {
@@ -30,6 +31,7 @@ export default {
   },
   /**
    * Update the job currently registered with the state of the application
+   *
    * @param state state of the application
    * @param job the job to update the state with
    */
@@ -38,6 +40,7 @@ export default {
   },
   /**
    * Update job href currently registered with the state of the application
+   *
    * @param state state of the application
    * @param jobHref the jobHref to update the state with
    */
@@ -46,6 +49,7 @@ export default {
   },
   /**
    * Set the token for the entire application and all subsequent API calls
+   *
    * @param state state of the application
    * @param token the token used to set the token in the state
    */
@@ -54,28 +58,41 @@ export default {
   },
   /**
    * Set the list of EntityTypes origination from the diagnostics package
+   *
    * @param state state of the application
-   * @param variantTables list of EntityTypes used to set the list of patients in the state
+   * @param patients list of EntityTypes used to set the list of patients in the state
    */
   [SET_PATIENT_TABLES] (state, patients) {
     state.patients = patients
   },
   /**
    * Sets the list of currently selected phenotypes
+   *
    * @param state state of the application
-   * @param list of selected phenotypes, may be empty
+   * @param phenotypeFilters list of selected phenotypes, may be empty
    */
-  [SET_SELECTED_PHENOTYPES] (state, selectedPhenotypes) {
-    // Use slice to clone selectedPhenotypes, this is needed to avoid altering the store form outside via the selectedPhenotypes
-    state.selectedPhenotypes = selectedPhenotypes.slice()
+  [SET_PHENOTYPE_FILTERS] (state, phenotypeFilters) {
+    state.phenotypeFilters = phenotypeFilters
   },
-  [SET_PATIENT] (state, variants) {
-    state.variants = variants
-  },
-  [TOGGLE_SELECTED_PHENOTYPES_ACIVATION] (state, selectedPhenotypeId) {
-    let selectedPhenotype = state.selectedPhenotypes.find(function (selectedPhenotype) {
-      return selectedPhenotype.id === selectedPhenotypeId
+  /**
+   * Toggle active state of a phenotype filter based on a phenotype ID
+   *
+   * @param state state of the application
+   * @param phenotypeId the ID of the phenotype filter that was toggled on or off
+   */
+  [TOGGLE_ACTIVE_PHENOTYPE_FILTERS] (state, phenotypeId) {
+    let phenotypeFilter = state.phenotypeFilters.find(function (phenotypeFilter) {
+      return phenotypeFilter.id === phenotypeId
     })
-    selectedPhenotype.isActive = !selectedPhenotype.isActive
+    phenotypeFilter.isActive = !phenotypeFilter.isActive
+  },
+  /**
+   * Store all the variants in the state for the selected patient
+   *
+   * @param state state of the application
+   * @param variants list of variant objects retrieved from the database
+   */
+  [SET_VARIANTS] (state, variants) {
+    state.variants = variants
   }
 }
