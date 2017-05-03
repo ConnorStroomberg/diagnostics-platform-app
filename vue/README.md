@@ -19,3 +19,16 @@ npm run build --report
 ```
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Develop with yarn
+
+``` bash
+# install dependencies
+yarn install
+
+# run unit tests ( add run yarn test:watch to keep watching tests)
+yarn test
+
+# run dev server with watch (linting, transpiling, dev server)
+yarn run dev
+```
